@@ -15,5 +15,3 @@ def create_app():
     db = SQLAlchemy(app)
     db.init_app(app)
     db.create_all()
-    return app
-

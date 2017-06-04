@@ -66,7 +66,7 @@ class User(db.Model, UserMixin):
 
 
 class Bucketlist(db.Model):
-    """this is the bucketlist model"""
+    '''this is the bucketlist model'''
     __tablename__ = "bucketlist"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
@@ -82,6 +82,10 @@ class Bucketlist(db.Model):
         self.date_created = datetime.utcnow()
         self.date_modified = datetime.utcnow()
 
+    def __init__(self, title):
+        """initialize with name."""
+        self.title = title
+
     def __repr__(self):
         return "<Bucketlist: {}>".format(self.title)
 
@@ -96,7 +100,6 @@ class Bucketlist(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
 
 class Item(db.Model):
     """this is the bucketlist item model"""
@@ -115,6 +118,10 @@ class Item(db.Model):
         self.date_created = datetime.utcnow()
         self.date_modified = datetime.utcnow()
         self.done = False
+
+    def __init__(self, title):
+        """initialize with name."""
+        self.title = title
 
     def __repr__(self):
         return "<Item : {}>".format(self.title)
