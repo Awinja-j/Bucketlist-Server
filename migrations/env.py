@@ -57,11 +57,7 @@ def run_migrations_online():
 
     # this callback is used to prevent an auto-migration from being generated
     # when there are no changes to the schema
-<<<<<<< HEAD
     # reference: http://alembic.zzzcomputing.com/en/latest/cookbook.html
-=======
-    # reference: http://alembic.readthedocs.org/en/latest/cookbook.html
->>>>>>> 26901ac5fdf2f31703061158da124b2d4182d3cf
     def process_revision_directives(context, revision, directives):
         if getattr(config.cmd_opts, 'autogenerate', False):
             script = directives[0]
