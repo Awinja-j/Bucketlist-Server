@@ -62,21 +62,21 @@ class BucketlistTestCase(unittest.TestCase):
         self.assertEqual(get_all_response.status_code, 200)
         self.assertIn('Go to Maaasai mara', str(get_all_response.data))
 
-    # def test_get_bucketlist_by_id(self):
-    #     """Test API can get a single bucketlist by using it's id."""
-    #     self.register_user()
-    #     result = self.login_user()
-    #     token = json.loads(result.get_data(as_text=True))['Authorization']
-    #
-    #     bucketlist = {"title": "Go to Dubai"}
-    #     response1 = self.client.post('/bucketlists/', data=json.dumps(bucketlist), headers={'Content-Type': 'application/json', 'Authorization': token})
-    #     self.assertEqual(response1.status_code, 201)
-    #
-    #     id = json.loads(response1.get_data(as_text=True))['id']
-    #     response2 = self.client.get('/bucketlists/' + str(id), headers={'Content-Type': 'application/json','Authorization':token})
-    #     self.assertEqual(response2.status_code, 200)
-    #     self.assertIn('Go to Dubai', str(result.data))
-    #
+    def test_get_bucketlist_by_id(self):
+        """Test API can get a single bucketlist by using it's id."""
+        self.register_user()
+        result = self.login_user()
+        token = json.loads(result.get_data(as_text=True))['Authorization']
+
+        bucketlist = {"title": "Go to Dubai"}
+        response1 = self.client.post('/bucketlists/', data=json.dumps(bucketlist), headers={'Content-Type': 'application/json', 'Authorization': token})
+        self.assertEqual(response1.status_code, 201)
+
+        id = json.loads(response1.get_data(as_text=True))['id']
+        response2 = self.client.get('/bucketlists/' + str(id), headers={'Content-Type': 'application/json','Authorization':token})
+        self.assertEqual(response2.status_code, 200)
+        self.assertIn('Go to Dubai', str(response2.data))
+
 
 
     def test_put_bucketlist(self):
@@ -109,13 +109,6 @@ class BucketlistTestCase(unittest.TestCase):
         response2 = self.client.delete('/bucketlists/' + str(id), headers={'Content-Type': 'application/json','Authorization':token})
         self.assertEqual(response2.status_code, 200)
 
-        # # Test to see if it exists, should return a 404
-        # result = self.client.get('/bucketlists/1', headers={'Content-Type': 'application/json','Authorization':token})
-        # self.assertEqual(result.status_code, 404)
-
-#sadpath
-     def test
-         pass
 
     def tearDown(self):
         """teardown all initialized variables."""

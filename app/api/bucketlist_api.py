@@ -21,21 +21,26 @@ def get_all_bucketlists():
     page_no = request.args.get('page_no', 1)
     limit = request.args.get('limit', 20)
     q_name = request.args.get('q', "")
-    bucket = Bucketlist.query.filter_by(created_by=g.user.id).filter(Bucketlist.title.ilike('%{}%'.format(q_name))).paginate(
+    bucket = Bucketlist.query.filter_by(created_by=g.user.id).\
+        filter(Bucketlist.title.ilike('%{}%'.format(q_name))).paginate(
         int(page_no), int(limit)
     )
-    if not bucket or bucket.created_by != g.user.id:
+    if not bucket:
         return jsonify(message='There is No Bucketlist to display!!!!')
     else:
-        return jsonify({
-            "Bucketlist": [{
-                "id": bucket.id,
-                "title": bucket.title,
-                "date_created": bucket.date_created,
-                "date_modified": bucket.date_modified,
-                "created_by": bucket.created_by,
+        bucketlists = [
+            {
+                "id":bucketlist.id,
+                "title": bucketlist.title,
+                "date_created": bucketlist.date_created,
+                "date_modified": bucketlist.date_modified,
+                "created_by": bucketlist.created_by
             }
-            ],
+            for bucketlist in bucket.items
+        ]
+        print(vars(bucket))
+        return jsonify({
+            "Bucketlists": bucketlists,
             "next": url_for(request.endpoint, page_no=bucket.next_num, limit=limit,
                             _external=True) if bucket.has_next else None,
             "prev": url_for(request.endpoint, page_no=bucket.prev_num, limit=limit,
@@ -64,8 +69,6 @@ def new_bucketlist():
 @auths.login_required
 def get_bucketlist(id):
     """Get single bucket list"""
-    if not request.json:
-        abort(400)
     bucket = Bucketlist.query.filter_by(id=id).first()
     if not bucket or bucket.created_by != g.user.id:
         return jsonify(message='This bucketlist with id {} was not found!'.format(id)), 404

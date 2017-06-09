@@ -35,10 +35,3 @@ manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
-
-# all the database migration commands can be accessed by running the script:
-        # $ python manage.py db init
-        # $ python manage.py db migrate
-        # $ python manage.py db upgrade
-        # $ python manage.py db --help
-

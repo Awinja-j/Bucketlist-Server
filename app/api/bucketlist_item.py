@@ -10,10 +10,8 @@ from app.auth.auth import auths
 from run import db
 from app.models import Bucketlist, Item
 from flask.blueprints import Blueprint
-POSTS_PER_PAGE = 20
 
 item = Blueprint('item', __name__, template_folder='templates')
-
 
 
 @item.route('/bucketlists/<int:id>/items', methods=['POST'])
