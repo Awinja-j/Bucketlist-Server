@@ -35,16 +35,198 @@ The building blocks used are:
  __You are now set!__
  you can now run the server using `python manage.py runserver` command
  
-* POST  `/auth/login` Logs a user in
-* POST `/auth/register` Register a user
-* POST `/bucketlists/` Create a new bucket list
-* GET `/bucketlists/` List all the created bucket lists
-* GET `/bucketlists/<id>` Get single bucket list
-* PUT `/bucketlists/<id>` Update this bucket list
-* DELETE `/bucketlists/<id>` Delete this single bucket list
-* POST `/bucketlists/<id>/items/` Create a new item in bucket list
-* PUT `/bucketlists/<id>/items/<item_id>` Update a bucket list item
-* DELETE `/bucketlists/<id>/items/<item_id>`  Delete an item in a bucket list
+ ## Endpoints
+ 
+ ### Registration
+ *Registers a new user* 
+ 
+ **method**
+ 
+ POST 
+ 
+  **URL**
+  
+ `/auth/register` 
+ 
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+ 
+ 
+ 
+ ### Login
+ *Returns authentication token*
+ 
+ **method**
+ 
+ POST  
+ 
+ **URL**
+ 
+ `/auth/login`
+  
+  **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+  
+  
+ ### Make a new bucketlist
+ *Creates a new bucket list*
+ 
+ **method**
+ 
+ POST 
+ 
+ **URL**
+ 
+ `/bucketlists/` 
+ 
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+ 
+ ### Get all bucketlists
+ *Lists all the created bucket lists by the user*
+ 
+ **method**
+ 
+ GET 
+ 
+ **URL**
+ 
+ `/bucketlists/` 
+ 
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call***
+ 
+ ### Gets a bucketlists
+ *Gets single bucket list using its id*
+ 
+ **method**
+ 
+ GET 
+ 
+ **URL**
+ 
+ `/bucketlists/<id>` 
+ 
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+ 
+ ### Update a bucketlist
+ *Updates the title of the bucket list*
+ 
+ **method**
+ 
+ PUT 
+ 
+ **URL**
+ 
+ `/bucketlists/<id>` 
+ 
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+ 
+ ### Delete a bucketlist
+ *Deletes a single bucket list using its id*
+ 
+ **method**
+ 
+ DELETE 
+ 
+ **URL**
+ 
+ `/bucketlists/<id>` 
+ 
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+ 
+ ### Make an item
+ *Creates a new item in bucket list*
+ 
+ **method**
+ POST 
+ 
+ **URL**
+ 
+ `/bucketlists/<id>/items/` 
+ 
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+ 
+ ### Edit/Update an item
+ *Updates the title of a bucket list item*
+ 
+ **method**
+ PUT 
+ 
+ **URL**
+ 
+ `/bucketlists/<id>/items/<item_id>` 
+ 
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+ 
+ ### Delete an item
+ *Deletes an item in a bucket list*
+ 
+ **method**
+ DELETE 
+ 
+ **URL**
+ 
+ `/bucketlists/<id>/items/<item_id>`
+   
+ **Data Params**
+ 
+ **Success Response**
+ 
+ **Error Response**
+ 
+ **Sample Call**
+
 
 ## Pagination
 

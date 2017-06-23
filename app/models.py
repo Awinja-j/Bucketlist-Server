@@ -35,13 +35,15 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def generate_auth_token(self, expiration=600):
+    def generate_auth_token(self, expiration=3600):
         s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
+        # s = Serializer(os.getenv('SECRET_KEY'), expires_in=expiration)
         return s.dumps({'id': self.id})
 
     @staticmethod
     def verify_auth_token(token):
         s = Serializer(app.config['SECRET_KEY'])
+        # s = Serializer(os.getenv('SECRET_KEY'))
         try:
             data = s.loads(token)
         except SignatureExpired:

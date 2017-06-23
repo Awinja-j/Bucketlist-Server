@@ -57,7 +57,7 @@ def login():
         return jsonify(message="error! Invalid password"), 403
     else:
         token = user.generate_auth_token()
-        return jsonify({'Authorization': 'Token ' + token.decode('ascii')}), 200
+        return jsonify({'Authorization': token.decode('ascii')}), 200
         # return jsonify(message="login succesfull! \n token : {}".format(token), token=token.decode()), 302
 
 @auth.route("/logout")

@@ -5,13 +5,52 @@ currentdir = os.path.dirname(os.path.abspath(
     inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
-from flask import g, request, jsonify, abort
+from flask import url_for, g, request, jsonify, abort
 from app.auth.auth import auths
 from run import db
 from app.models import Bucketlist, Item
 from flask.blueprints import Blueprint
 
 item = Blueprint('item', __name__, template_folder='templates')
+
+@item.route('/bucketlists/<int:id>/items', methods=['GET'])
+@auths.login_required
+def get_all_items(id):
+    """gets all the items in the bucket lists"""
+    bucket = Bucketlist.query.filter_by(id=id).first()
+    if not bucket or bucket.created_by != g.user.id:
+        return jsonify(message='This bucketlist with id {} was not found!'.format(id)), 404
+
+    page_no = request.args.get('page_no', 1)
+    limit = request.args.get('limit', 20)
+    q_name = request.args.get('q', "")
+
+    item = Item.query.filter_by(bucketlist_id=bucket.id).\
+        filter(Item.title.ilike('%{}%'.format(q_name))).paginate(
+        int(page_no), int(limit)
+    )
+
+    if not item:
+        return jsonify(message='There is No item to display!!!!')
+    else:
+        Items = [
+            {
+                "id": ITEM.id,
+                "title": ITEM.title,
+                "date_created": ITEM.date_created,
+                "date_modified": ITEM.date_modified,
+                "done":ITEM.done
+            }
+            for ITEM in item.items
+        ]
+        return jsonify({
+            "Items": Items,
+            "next": url_for(request.endpoint, page_no=item.next_num, limit=limit,
+                            _external=True) if item.has_next else None,
+            "prev": url_for(request.endpoint, page_no=item.prev_num, limit=limit,
+                            _external=True) if item.has_prev else None,
+        }), 200
+
 
 
 @item.route('/bucketlists/<int:id>/items', methods=['POST'])
@@ -74,6 +113,3 @@ def delete_an_item_from_a_single_bucketlist(id, item_id):
         db.session.delete(Item.query.get(item_id))
         db.session.commit()
         return jsonify({'Delete': True}), 200
-
-def item_search():
-    """search for a single item using name"""

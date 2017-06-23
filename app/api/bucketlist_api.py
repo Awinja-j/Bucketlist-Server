@@ -30,7 +30,7 @@ def get_all_bucketlists():
     else:
         bucketlists = [
             {
-                "id":bucketlist.id,
+                "id": bucketlist.id,
                 "title": bucketlist.title,
                 "date_created": bucketlist.date_created,
                 "date_modified": bucketlist.date_modified,
@@ -128,7 +128,3 @@ def delete_bucketlist(id):
         db.session.delete(Bucketlist.query.get(id))
         db.session.commit()
         return jsonify({'Delete': True}), 200
-
-def bucket_search():
-    """search for a single bucketlist using name"""
-    bucketlist = Bucketlist.query.filter(Bucketlist.title.ilike('%' + search + '%')).filter_by(user_id=user.id)
