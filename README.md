@@ -35,222 +35,46 @@ The building blocks used are:
  __You are now set!__
  you can now run the server using `python manage.py runserver` command
  
- ## Endpoints
- 
- ### Registration
- *Registers a new user* 
- 
- **method**
- 
- POST 
- 
-  **URL**
-  
- `/auth/register` 
- 
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
- 
- 
- 
- ### Login
- *Returns authentication token*
- 
- **method**
- 
- POST  
- 
- **URL**
- 
- `/auth/login`
-  
-  **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
-  
-  
- ### Make a new bucketlist
- *Creates a new bucket list*
- 
- **method**
- 
- POST 
- 
- **URL**
- 
- `/bucketlists/` 
- 
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
- 
- ### Get all bucketlists
- *Lists all the created bucket lists by the user*
- 
- **method**
- 
- GET 
- 
- **URL**
- 
- `/bucketlists/` 
- 
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call***
- 
- ### Gets a bucketlists
- *Gets single bucket list using its id*
- 
- **method**
- 
- GET 
- 
- **URL**
- 
- `/bucketlists/<id>` 
- 
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
- 
- ### Update a bucketlist
- *Updates the title of the bucket list*
- 
- **method**
- 
- PUT 
- 
- **URL**
- 
- `/bucketlists/<id>` 
- 
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
- 
- ### Delete a bucketlist
- *Deletes a single bucket list using its id*
- 
- **method**
- 
- DELETE 
- 
- **URL**
- 
- `/bucketlists/<id>` 
- 
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
- 
- ### Make an item
- *Creates a new item in bucket list*
- 
- **method**
- POST 
- 
- **URL**
- 
- `/bucketlists/<id>/items/` 
- 
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
- 
- ### Edit/Update an item
- *Updates the title of a bucket list item*
- 
- **method**
- PUT 
- 
- **URL**
- 
- `/bucketlists/<id>/items/<item_id>` 
- 
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
- 
- ### Delete an item
- *Deletes an item in a bucket list*
- 
- **method**
- DELETE 
- 
- **URL**
- 
- `/bucketlists/<id>/items/<item_id>`
-   
- **Data Params**
- 
- **Success Response**
- 
- **Error Response**
- 
- **Sample Call**
+ ### Interact with the API, send http requests using Postman
+ 
+ 
+ ## API Endpoints
+ 
+| URL Endpoint | HTTP Methods | Summary |
+| -------- | ------------- | --------- |
+| `/auth/register` | `POST`  | Register a new user|
+| `/auth/login` | `POST` | Login and retrieve token|
+| `/bucketlists` | `POST` | Create a new Bucketlist |
+| `/bucketlists` | `GET` | Retrieve all bucketlists for user |
+| `/bucketlists/?page=1&limit=20` | `GET` | Retrieve three bucketlists per page |
+| `/bucketlists/?q=name` | `GET` | searches a bucketlist by the name|
+| `/bucketlists/<id>` | `GET` |  Retrieve a bucketlist by ID|
+| `/bucketlists/<id>` | `PUT` | Update a bucketlist |
+| `/bucketlists/<id>` | `DELETE` | Delete a bucketlist |
+| `/bucketlists/<id>/items` | `POST` |  Create items in a bucketlist |
+| `/bucketlists/<id>/items/<item_id>` | `DELETE`| Delete an item in a bucketlist|
+| `/bucketlists/<id>/items/<item_id>` | `PUT`| update a bucketlist item details|
 
+### Sample Requests
 
-## Pagination
+User Registration
 
-users can specify the number of results they would like to have via a GET parameter limit. 
-The default number of results is 20 and the maximum number of results is 100.
+![Screen shot](screenshots/user_registaration)
 
-#### Sample Request
+User login
 
-`GET http://localhost:5000/bucketlists?limit=20`
+![Screen shot](screenshots/user_login.png)
 
-#### Response
-20 bucket list records belonging to the logged in user.
+Adding a Bucketlist
 
+![Screen shot](screenshots/user_search.png)
 
-## Searching by Name
-searching for bucket lists based on the title using a GET parameter q.
+Searching
+![Screen shot](screenshots/add_bucketlist.png)
 
-#### Sample Request
+# Testing
 
-`GET http://localhost:5555/bucketlists?q=bucket1`
-
-#### Response
-Bucket lists with the string “bucket1” in their name.
-
+You can run the tests using this command `nosetests --with-coverage`
 
 
 
