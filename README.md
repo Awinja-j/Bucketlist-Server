@@ -59,7 +59,7 @@ The building blocks used are:
 
 User Registration
 
-![Screen shot](screenshots/user_registaration)
+![Screen shot](screenshots/user_registration)
 
 User login
 
