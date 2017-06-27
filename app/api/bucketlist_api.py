@@ -54,15 +54,22 @@ def new_bucketlist():
     if not request.json:
         abort(400)
     bucketlist = Bucketlist(title=request.json['title'], created_by=g.user.id)
-    db.session.add(bucketlist)
-    db.session.commit()
-    return jsonify(
-                    {"id":bucketlist.id,
-                    "title": bucketlist.title,
-                    "date_created": bucketlist.date_created,
-                    "date_modified": bucketlist.date_modified,
-                    "created_by": bucketlist.created_by
-                    }), 201
+    if not Bucketlist:
+        return jsonify(message='This bucketlist title already Exists'), 404
+    else:
+        db.session.add(bucketlist)
+        db.session.commit()
+        return jsonify(
+                        {"id":bucketlist.id,
+                        "title": bucketlist.title,
+                        "date_created": bucketlist.date_created,
+                        "date_modified": bucketlist.date_modified,
+                        "created_by": bucketlist.created_by
+                        }), 201
+
+
+
+
 
 
 @bucket.route('/bucketlists/<int:id>', methods=['GET'])

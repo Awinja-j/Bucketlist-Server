@@ -64,15 +64,18 @@ def add_items_in_single_bucketlist(id):
         return jsonify(message='This bucketlist with id {} was not found!'.format(id)), 404
 
     item = Item(title=request.json['title'], bucketlist_id=bucket.id)
-    db.session.add(item)
-    db.session.commit()
-    return jsonify({"id": item.id,
-                    "title": item.title,
-                    "date_created": item.date_created,
-                    "date_modified": item.date_modified,
-                    "done" : item.done,
-                    "bucketlist_id": item.bucketlist_id
-                    }), 201
+    if not Item:
+        return jsonify(message='This Item title already Exists'), 404
+    else:
+        db.session.add(item)
+        db.session.commit()
+        return jsonify({"id": item.id,
+                        "title": item.title,
+                        "date_created": item.date_created,
+                        "date_modified": item.date_modified,
+                        "done" : item.done,
+                        "bucketlist_id": item.bucketlist_id
+                        }), 201
 
 
 @item.route('/bucketlists/<int:id>/items/<int:item_id>', methods=['PUT'])
