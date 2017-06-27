@@ -53,7 +53,10 @@ def new_bucketlist():
     """Create a new bucket list"""
     if not request.json:
         abort(400)
+    if not request.json['title']:
+        abort(400)
     bucketlist = Bucketlist(title=request.json['title'], created_by=g.user.id)
+
     if not Bucketlist:
         return jsonify(message='This bucketlist title already Exists'), 404
     else:
@@ -107,6 +110,8 @@ def get_bucketlist(id):
 def put_bucketlist(id):
     """Update this bucket list"""
     if not request.json:
+        abort(400)
+    if not request.json['title']:
         abort(400)
     bucket = Bucketlist.query.filter_by(id=id).first()
     if not bucket or bucket.created_by != g.user.id:

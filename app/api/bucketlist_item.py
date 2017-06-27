@@ -59,6 +59,13 @@ def add_items_in_single_bucketlist(id):
     """Create a new item in bucket list"""
     if not request.json:
         abort(400)
+
+    if not 'title' in request.json:
+        abort(400)
+
+    if not request.json['title']:
+        abort(400)
+
     bucket = Bucketlist.query.filter_by(id=id).first()
     if not bucket or bucket.created_by != g.user.id:
         return jsonify(message='This bucketlist with id {} was not found!'.format(id)), 404
@@ -83,6 +90,12 @@ def add_items_in_single_bucketlist(id):
 def update_single_item(id, item_id):
     """Update a bucket list item"""
     if not request.json:
+        abort(400)
+
+    if not 'title' in request.json:
+        abort(400)
+
+    if not request.json['title']:
         abort(400)
 
     bucket = Bucketlist.query.filter_by(id=id).first()

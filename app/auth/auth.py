@@ -31,13 +31,16 @@ def register():
     password = request.json.get('password')
     if email is None or password is None:
         return jsonify(message='missing arguments!'), 400
-    if db.session.query(User).filter_by(email=email).first() is not None:
-        return jsonify(message=' This user already exists!'), 400
-    user = User(email=email, password=password)
-    user.set_password(password)
-    db.session.add(user)
-    db.session.commit()
-    return jsonify(message="Successfully registered {0}".format(email)), 201
+    if len(password) > 6:
+        if db.session.query(User).filter_by(email=email).first() is not None:
+            return jsonify(message=' This user already exists!'), 400
+        user = User(email=email, password=password)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+        return jsonify(message="Successfully registered {0}".format(email)), 201
+    else:
+        return jsonify(message='password characters shouold be more than six! Please try again!'), 404
 
 @auth.route('/auth/login', methods=['POST'])
 def login():
